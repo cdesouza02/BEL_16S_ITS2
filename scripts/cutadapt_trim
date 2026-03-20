@@ -1,0 +1,71 @@
+#!/bin/bash
+#SBATCH -c 14  # Number of Cores per Task
+#SBATCH --mem=100G  # Requested Memory
+#SBATCH -p cpu  # Partition
+#SBATCH -t 2:00:00  # Job time limit
+#SBATCH --mail-type=ALL
+#SBATCH -o /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/slurm/slurm-trim-%j.out  # %j = job ID
+
+cd /scratch3/workspace/caroline_desouza_uml_edu-CBC_immune_microbe/
+
+module load conda/latest
+
+conda activate cutadapt
+
+# Loop through all R1 FASTQ files
+for r1 in *_R1_001.fastq.gz; do
+    sample=${r1%%_R1_001.fastq.gz}
+    r2="${sample}_R2_001.fastq.gz"
+
+    # Skip samples missing R2
+    if [[ ! -f $r2 ]]; then
+        echo "❌ Missing R2 for $sample — skipping"
+        continue
+    fi
+
+    echo "🔍 Processing sample: $sample"
+
+    # Create output directories
+mkdir -p temp trim/16S trim/ITS2 trim/unmatched
+
+#command to keep the primer in but cut everything before it 
+    # STEP 2: Detect 16S reads (do NOT trim)
+    cutadapt --cores=14 --pair-filter=both \
+        -g GTGYCAGCMGCCGCGGTAA \
+        -G GGACTACNVGGGTWTCTAAT \
+        -o trim/16S/${sample}_R1_16S.fastq \
+        -p trim/16S/${sample}_R2_16S.fastq \
+        --untrimmed-output temp/"${sample}_R1_unmatched.fastq.gz" \
+        --untrimmed-paired-output temp/"${sample}_R2_unmatched.fastq.gz" \
+        "${sample}_R1_001.fastq.gz" \
+         "${sample}_R2_001.fastq.gz"
+
+
+ # STEP 3: Detect ITS2 reads from unmatched pol (do NOT trim)
+    cutadapt --cores=14 --pair-filter=both \
+        -g GAATTGCAGAACTCCGTGAACC \
+        -G CGGGTTCWCTTGTYTGACTTCATGC \
+        -o trim/ITS2/${sample}_R1_ITS2.fastq \
+        -p trim/ITS2/${sample}_R2_ITS2.fastq \
+        --untrimmed-output trim/unmatched/${sample}_R1_unmatched.fastq \
+        --untrimmed-paired-output trim/unmatched/${sample}_R2_unmatched.fastq \
+        temp/"${sample}_R1_unmatched.fastq.gz" \
+        temp/"${sample}_R2_unmatched.fastq.gz"
+
+    echo "✅ Finished sample: $sample"
+
+
+done
+
+
+# Clean up temporary files
+rm -r temp
+
+echo "🎉 All samples processed and unmatched reads saved for QC."
+
+#JOB-ID:
+
+
+#R1_JOB-ID:48550819
+#R2_JOB-ID:
+#bash script file name: /work/pi_sarah_gignouxwolfsohn/caroline/scripts/cutadapt_trim
