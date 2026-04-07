@@ -1,0 +1,70 @@
+#!/bin/bash
+#SBATCH -c 17  # Number of Cores per Task
+#SBATCH --mem=180G  # Requested Memory
+#SBATCH -p cpu  # Partition
+#SBATCH -t 24:00:00  # Job time limit
+#SBATCH --mail-type=ALL
+#SBATCH -o /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/slurm/sortmerna-%j.out  # %j = job ID
+
+
+# Activate conda and the correct environment
+cd /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/envs
+
+module load conda/latest
+conda activate /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/envs/sortmerna
+
+# Move to working directory
+set -euo pipefail
+cd /scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run4
+
+#temporary directory to store unzipped fastq files
+mkdir -p temp 
+
+# Loop through all R1 FASTQ files
+for r1 in *_R1_16S.fastq.gz; do
+    sample=${r1%%_R1_16S.fastq.gz}
+    r2="${sample}_R2_16S.fastq.gz"
+
+    # Skip samples missing R2
+    if [[ ! -f $r2 ]]; then
+        echo "❌ Missing R2 for $sample — skipping"
+        continue
+    fi
+
+    echo "🔍 Processing sample: $sample"
+
+
+# SortMeRNA is that it requires that you only give it a single file and that the file is uncompressed 
+# combine unzipped files into single file using merge-paired-reads.sh found in the scripts directory of the SortMeRNA source code
+
+#unzipping files
+gunzip trim/16S/${sample}_R1_16S.fastq.gz trim/16S/${sample}_R2_16S.fastq.gz
+
+# combining files
+bash scripts/merge-paired-reads.sh ${sample}_R1_16S.fastq ${sample}_R2_16S.fastq ${sample}_combined.fastq
+
+
+#extracting the and saving only reads that match SILVA 16S
+bin/sortmerna --reads ${sample}_combined.fastq \
+    --ref rRNA_databases/silva-euk-16s-database-id95.fasta,index/silva-euk-16s-database-id95 \
+    --paired-in \
+    --fastx \
+    --aligned matched-16S \
+    -a 4
+
+
+    echo "✅ Finished sample: $sample"
+
+done
+
+#rezipping files after removing 16S
+gzip trim/16S/${sample}_R1_16S.fastq trim/16S/${sample}_R2_16S.fastq
+
+
+# Clean up temporary files
+rm -r temp
+
+echo "🎉 All samples processed and unmatched reads saved for QC."
+
+#JOB-ID:
+#bash script file name: /work/pi_sarah_gignouxwolfsohn/caroline/scripts/sortmerna
