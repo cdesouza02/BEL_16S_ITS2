@@ -5,7 +5,7 @@
 #SBATCH --qos=long
 #SBATCH -t 120:00:00  # Job time limit
 #SBATCH --mail-type=ALL
-#SBATCH -o /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/slurm/run2-dada2-%j.out  # %j = job ID
+#SBATCH -o /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/slurm/run4-dada2-%j.out  # %j = job ID
 
 
 # Activate conda and the correct environment
@@ -19,7 +19,7 @@ cd /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline
 
 
 # Path to R script
-rscript="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/dada2.r"
+rscript="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/BEL_16S_ITS2/scripts/dada2.r"
 
 # Run R script
 Rscript "$rscript"
