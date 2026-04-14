@@ -1,8 +1,8 @@
 library("dada2")
 n_cores <- 17
 
-pathF="/scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run4/trim/16S/R1"
-pathR="/scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run4/trim/16S/R2"
+pathF="/scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run5/trim/16S/R1"
+pathR="/scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run5/trim/16S/R2"
 
 list.files(pathF)
 list.files(pathR)
@@ -11,11 +11,11 @@ fnFs = sort(list.files(pathF, pattern="_R1_16S.fastq", full.names = TRUE))
 fnRs = sort(list.files(pathR, pattern="_R2_16S.fastq", full.names = TRUE))
 
 # if file names have - instead of _ use this
-# sample.names = sapply(strsplit(basename(fnFs), "_"), `[`, 1)
+sample.names = sapply(strsplit(basename(fnFs), "_"), `[`, 1)
 
 # if filenames only have underscore use this
 #This removes everything from _S## onward, leaving exactly
-sample.names = sub("(_S[0-9]+_R[12]_16S.*)$", "", basename(fnFs))
+# sample.names = sub("(_S[0-9]+_R[12]_16S.*)$", "", basename(fnFs))
 
 #look at quality profiles to decide filtration parameters
 #have already looked at multiqc
@@ -62,7 +62,7 @@ for(sam in sample.names) {
 seqtab <- makeSequenceTable(mergers)
 dim(seqtab)
 
-write.csv(seqtab, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run4_16S_ASV.csv")
+write.csv(seqtab, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run5_16S_ASV.csv")
 
 #remove chimeras
 seqtab.nochim <- removeBimeraDenovo(seqtab, method="consensus", multithread=TRUE, verbose=TRUE)
@@ -80,16 +80,16 @@ colnames(track) <- c("input", "filtered", "denoisedF", "denoisedR", "merged", "n
 rownames(track) <- sample.names
 head(track)
 
-write.csv(track, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run4_Seqnums_16S.csv")
+write.csv(track, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run5_Seqnums_16S.csv")
 
 #taxonomy
 taxa = assignTaxonomy(seqtab.nochim, "/project/pi_sarah_gignouxwolfsohn_uml_edu/BEL_16S_ITS2_seqs/silva_nr99_v138.2_toGenus_trainset.fa.gz", multithread=TRUE)
 
 dim(taxa)
 
-write.csv(seqtab.nochim, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run4_16S_ASV_nochim.csv")
+write.csv(seqtab.nochim, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run5_16S_ASV_nochim.csv")
 
-write.csv(taxa, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run4_16S_taxa.csv")
+write.csv(taxa, file="/work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/ASVs/Run5_16S_taxa.csv")
 
 
 
