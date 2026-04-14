@@ -4,14 +4,14 @@
 #SBATCH -p cpu  # Partition
 #SBATCH -t 24:00:00  # Job time limit
 #SBATCH --mail-type=ALL
-#SBATCH -o /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/slurm/cutadaptRun4_%j.out  # %j = job ID
+#SBATCH -o /work/pi_sarah_gignouxwolfsohn_uml_edu/caroline/slurm/cutadaptRun5_%j.out  # %j = job ID
 
 # raw files in a zipped dir
 ## mkdir 16S_ITS2_Run1
 ## unzip 16S_ITS2_Run1.zip -d 16S_ITS2_Run1
 
 set -euo pipefail
-cd /scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run4
+cd /scratch4/workspace/caroline_desouza_uml_edu-microbe-Run1/16S_ITS2_Run5
 
 module load conda/latest
 
