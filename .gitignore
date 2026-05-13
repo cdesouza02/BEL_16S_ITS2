@@ -1,0 +1,10 @@
+# Ignore common MacOS system files
+.DS_Store
+
+# jupyter notebooks
+.ipynb_checkpoints
+
+
+# R Stuff
+# History files
+
