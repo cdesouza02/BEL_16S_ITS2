@@ -13,7 +13,7 @@ To understand how 6 coral host species interact with their holobionts under stre
 
 ### BEL_ITS2_outputs
 - Do coral species at the same reefs host different symbionts?
-   - Siderastrea sidera has been desribed as stress tolerant when compared to other species, do we see anything in this data that corroborates that (Jones et.al 2025)?
+   - Siderastrea sidera has been desribed as stress tolerant when compared to other species, do we see anything in this data that corroborates that (Jones et.al 2025, Loya et al. 2001)?
 - Do [coral hosts recruit the same symbionts while recovering from bleaching?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_ITS2_outputs/Health_status.ipynb)
 - Did the [SCTLD outbreak (2022) impact symbiont populations in Carrie Bowe Cay?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_ITS2_outputs/Health_status.ipynb)
 - What [variables outside of species are driving clustering of symbiont communities?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_ITS2_outputs/its2_ordination.ipynb)
