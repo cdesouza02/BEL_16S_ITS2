@@ -18,7 +18,7 @@ To understand how 6 coral host species interact with their holobionts under stre
    - Is there any evidence of "environmental memory" when face repeated heatwaves (Brown and Barott 2022; Hackerott et al. 2021)?
 - Did the [SCTLD outbreak (2022) impact symbiont populations in Carrie Bowe Cay?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_ITS2_outputs/Health_status.ipynb)
 - What [variables outside of species are driving clustering of symbiont communities?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_ITS2_outputs/its2_ordination.ipynb)
-
+- How different are each corals symbiont communities compared to other corals (alpha diversity)? Are there sites with more diverse symbiont profiles?
 
 
 
