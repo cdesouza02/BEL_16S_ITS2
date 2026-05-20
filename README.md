@@ -4,12 +4,12 @@ To understand how 6 coral host species interact with their holobionts under stre
 ## Questions
 ### BEL_16S_outputs
 - Are there differences in microbe population between [coral species](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_16S_outputs/species.ipynb) in the same global region?
-  - Are those [interspecific differences observed in the same transect,](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_16S_outputs/species.ipynb) where the environment is more similar?
 - How are different [coral species changing their microbiome interactions over time and in response to stress?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_16S_outputs/species.ipynb)
 - How are the microbiomes of [individual coral colonies changing overtime?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_16S_outputs/colonies_overtime.ipynb)
   - Do coral hosts recruit fewer bacteria or shift to recruiting new bacteria?
 - How do the microbiomes of [individual colonies change with exposure to stressors like heat and disease?](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_16S_outputs/colonies_overtime.ipynb)
 - What [variables outside of species are driving clustering](https://github.com/cdesouza02/BEL_16S_ITS2/blob/main/BEL_16S_outputs/ordination_stats.ipynb) of microbiome populations?
+  - Is host species or transect a greater driver of microbiome composistion?
 
 ### BEL_ITS2_outputs
 - Do coral species at the same reefs host different symbionts?
